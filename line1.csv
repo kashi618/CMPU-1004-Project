@@ -1,0 +1,11 @@
+lineCode,batchCode,Day,Hour,minute,productId,productName,targetEngineCode,binNumber,weight,price
+1,1001,15,9,30,5001,Spark_Plug,V6-2.0L,12,0.2,8.99
+1,1002,15,10,15,5002,Oil_Filter,I4-1.5L,5,1.2,12.5
+1,1003,15,10,30,5003,Air_Filter,V8-5.0L,8,0.8,9.99
+1,1004,15,11,0,5004,Brake_Pad_Set,R6-3.0L,10,2.5,45
+1,1005,15,11,45,5005,Windshield_Wiper,L4-2.4L,3,0.3,6.5
+1,1006,15,12,0,5006,Fuel_Pump,D4-2.0L,7,1.5,30
+1,1007,15,12,30,5007,Ignition_Coil,V6-3.6L,9,0.6,22
+1,1008,15,13,15,5008,Timing_Belt,H4-1.8L,4,0.9,18.5
+1,1009,15,14,0,5009,Alternator,V8-6.2L,11,4,120
+1,1010,15,14,45,5010,Radiator,F4-1.6L,6,3.2,85
