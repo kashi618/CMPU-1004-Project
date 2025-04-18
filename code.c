@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 // Symbolic Names
@@ -9,7 +10,7 @@
 
 
 // Structure Tags
-struct batchDate {
+struct date {
     int day;
     int hour;
     int minute;
@@ -17,7 +18,7 @@ struct batchDate {
 struct product {
     int lineCode;
     int batchCode;
-    int batchDate; // day, hour, minute
+    struct date batchDate;
     int productId;
     char productName[SIZE];
     char targetEngineCode[SIZE];
@@ -28,7 +29,7 @@ struct product {
 
 
 // Function Signatures
-void readCSV(FILE*);
+void readCSV(FILE*, struct product[]);
 
 // Main function 
 int main(void) {
@@ -58,40 +59,7 @@ int main(void) {
 
 
     // Read CSV
-    readCSV(fpLine1);
-   
-
-
-    /*
-    // Cycles through each line, storing values into its respective structure
-    for (int line=1; line<4; line++) {
-        for (int i=0; i<LINESIZE; i++) {
-            switch (line) {
-                case 1:
-                    //...
-                    while (i) {
-
-
-                    }
-
-
-                    break;
-        
-                case 2:
-                    //...
-                    break;
-                
-                case 3:
-                    //...
-                    break;
-
-                case 4:
-                    //...
-                    break;
-            } // END SWITCH
-        } // END FOR (i)
-    } // END FOR (line)
-    */
+    readCSV(fpLine1, L1);
 
     // Closes files
     printf("Closing files\n");
@@ -105,28 +73,71 @@ int main(void) {
 } // END main()
 
 // Stores data from csv to structure
-void readCSV(FILE *fpLine) {
+void readCSV(FILE *fpLine, struct product line[LINESIZE]) {
     char buffer[BUFFERSIZE];
     char* elementPtr;
-
-    /*
-    fgets(buffer, 100, fpLine);
-    buffer[strlen(buffer)-1] = '\0';
-
-    printf("%s",buffer);
-    */
+    int loop=0;
 
     // Read each line in file
     while (fgets(buffer, BUFFERSIZE, fpLine) != NULL) {
         buffer[strlen(buffer)-1] = '\0'; // Remove '\n' added by fgets
-        printf("%s\n",buffer);
 
+        // Show current working line
+        //printf("%s\n",buffer);
+
+        // Find first character up to the comma ','
         elementPtr = strtok(buffer,",");
-        printf("%s\n", elementPtr);
-        for (int i=0; i<11; i++) {
-            elementPtr = strtok(NULL,",");
-            printf("%s\n", elementPtr);
-        }
+        line[loop].lineCode = atoi(elementPtr); // lineCode
+        
+        elementPtr = strtok(NULL,",");
+        line[loop].batchCode = atoi(elementPtr); // batchCode
 
+        elementPtr = strtok(NULL,",");
+        line[loop].batchDate.day = atoi(elementPtr); // day
+
+        elementPtr = strtok(NULL,",");
+        line[loop].batchDate.minute = atoi(elementPtr); // hour
+
+        elementPtr = strtok(NULL,",");
+        line[loop].batchDate.hour = atoi(elementPtr); // minute
+
+        elementPtr = strtok(NULL,",");
+        line[loop].productId = atoi(elementPtr); // productId
+
+        elementPtr = strtok(NULL,",");
+        strcpy(line[loop].productName, elementPtr); // productName
+
+        elementPtr = strtok(NULL,",");
+        strcpy(line[loop].targetEngineCode, elementPtr); // targetEngineCode
+
+        elementPtr = strtok(NULL,","); // binNumber
+        line[loop].binNumber = atoi(elementPtr);
+
+        elementPtr = strtok(NULL,","); // weight
+        line[loop].binNumber = atof(elementPtr);
+
+        elementPtr = strtok(NULL,","); // price
+        line[loop].binNumber = atof(elementPtr);
+
+        loop++;
     }
+
 }
+
+/*
+struct product {
+    int lineCode;
+    int batchCode;
+    struct batchDate {
+        int day;
+        int hour;
+        int minute;
+    };
+    int productId;
+    char productName[SIZE];
+    char targetEngineCode[SIZE];
+    int binNumber;
+    float weight;
+    float price;
+};
+*/
