@@ -1,11 +1,11 @@
 lineCode,batchCode,Day,Hour,minute,productId,productName,targetEngineCode,binNumber,weight,price
-4,4001,15,8,30,8001,Spark Plug Wire Set,V6-3.2L,2,0.2,20.00
-4,4002,15,9,5,8002,PCV Valve,I4-1.8L,5,0.1,8.00
-4,4003,15,9,40,8003,Camshaft Position Sensor,V8-5.4L,9,0.4,25.00
-4,4004,15,10,15,8004,Idler Pulley,L4-2.5L,7,0.6,12.00
-4,4005,15,10,50,8005,Fuel Injector,R6-3.8L,6,0.8,50.00
-4,4006,15,11,25,8006,MAF Sensor,H4-1.6L,4,0.2,35.00
-4,4007,15,12,0,8007,Starter Motor,V6-2.8L,10,8.0,130.00
-4,4008,15,12,35,8008,Valve Cover Gasket,I4-2.4L,8,0.3,10.00
-4,4009,15,13,10,8009,Differential Fluid,F4-1.8L,3,1.0,15.00
-4,4010,15,13,45,8010,Control Arm,L4-2.0L,11,4.5,75.00
+4,4001,15,8,30,8001,Spark Plug Wire Set,V6-3.2L,2,30,20.12
+4,4002,15,9,5,8002,PCV Valve,I4-1.8L,5,57,8.23
+4,4003,15,9,40,8003,Camshaft Position Sensor,V8-5.4L,9,73,25.53
+4,4004,15,10,15,8004,Idler Pulley,L4-2.5L,7,24,12.81
+4,4005,15,10,50,8005,Fuel Injector,R6-3.8L,6,81,50.66
+4,4006,15,11,25,8006,MAF Sensor,H4-1.6L,4,56,35.33
+4,4007,15,12,0,8007,Starter Motor,V6-2.8L,10,82,130.12
+4,4008,15,12,35,8008,Valve Cover Gasket,I4-2.4L,8,85,10.54
+4,4009,15,13,10,8009,Differential Fluid,F4-1.8L,3,23,15.91
+4,4010,15,13,45,8010,Control Arm,L4-2.0L,11,70,75.43

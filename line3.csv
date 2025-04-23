@@ -1,11 +1,11 @@
 lineCode,batchCode,Day,Hour,minute,productId,productName,targetEngineCode,binNumber,weight,price
-3,3001,15,9,0,7001,Headlight Bulb,H4-1.6L,1,0.1,5.00
-3,3002,15,9,35,7002,EGR Valve,V6-2.7L,5,1.0,35.00
-3,3003,15,10,10,7003,Transmission Fluid,F4-1.5L,9,1.2,12.00
-3,3004,15,10,45,7004,Catalytic Converter,V8-6.0L,12,12.0,300.00
-3,3005,15,11,20,7005,Power Steering Pump,R6-3.3L,6,3.0,80.00
-3,3006,15,11,55,7006,Turbocharger,I4-2.0L,7,6.5,450.00
-3,3007,15,12,30,7007,ABS Sensor,L4-2.2L,4,0.3,18.00
-3,3008,15,13,5,7008,Drive Belt,V6-3.5L,8,0.7,15.00
-3,3009,15,13,40,7009,Water Pump,H4-1.8L,10,2.0,55.00
-3,3010,15,14,15,7010,Engine Mount,D4-2.5L,3,1.5,30.00
+3,3001,15,9,0,7001,Headlight Bulb,H4-1.6L,1,88,5.52
+3,3002,15,9,35,7002,EGR Valve,V6-2.7L,5,37,35.46
+3,3003,15,10,10,7003,Transmission Fluid,F4-1.5L,9,27,12.02
+3,3004,15,10,45,7004,Catalytic Converter,V8-6.0L,12,38,300.14
+3,3005,15,11,20,7005,Power Steering Pump,R6-3.3L,6,72,80.95
+3,3006,15,11,55,7006,Turbocharger,I4-2.0L,7,60,450.72
+3,3007,15,12,30,7007,ABS Sensor,L4-2.2L,4,68,18.51
+3,3008,15,13,5,7008,Drive Belt,V6-3.5L,8,80,15.23
+3,3009,15,13,40,7009,Water Pump,H4-1.8L,10,62,55.62
+3,3010,15,14,15,7010,Engine Mount,D4-2.5L,3,75,30.48
