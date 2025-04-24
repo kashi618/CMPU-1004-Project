@@ -4,10 +4,14 @@
 #include <float.h>
 
 // Symbolic Names
-#define SIZE 50        // Sets maximum length for strings
-#define LINESIZE 10    // Sets size of each line
-#define BUFFERSIZE 200 // Maximum size of a single line in a file
-#define MASTERSIZE 40  // Sets size for masterline, containing all lines
+#define SIZE        50  // Maximum string length
+
+#define LINESIZE    10  // Sets size of each line
+#define MASTERSIZE  40  // Sets size for masterline, containing all lines
+#define BUFFERSIZE  200 // Maximum size of a single line in a file
+
+#define NUMVAN      5   // How many vans are available
+#define WEIGHTLIMIT 500 // Maximum weight for one van
 
 // Structure Tags
 struct date
@@ -36,25 +40,13 @@ void merge(struct product[], int, int, int);
 void mergeLines(struct product[], struct product[], struct product[], struct product[], struct product[]);
 void binarySearch(struct product[], int);
 void showStructVar(struct product[], int, int, int);
-
-/*
-    int lineCode;
-    int batchCode;
-    int day;
-    int hour;
-    int minute;
-    int productId;
-    char productName[SIZE];
-    char targetEngineCode[SIZE];
-    int binNumber;
-    int weight;
-    float price;
-    */
+void vanReport(struct product[], struct product[], struct product[], struct product[], struct product[], struct product[]);
 
 // Main function 
-int main(void)
-{
-    struct product L1[LINESIZE], L2[LINESIZE], L3[LINESIZE], L4[LINESIZE], masterLine[LINESIZE * 4], temp;
+int main(void) {
+    struct product L1[LINESIZE], L2[LINESIZE], L3[LINESIZE], L4[LINESIZE], masterLine[LINESIZE * 4];
+    struct product van1[LINESIZE], van2[LINESIZE], van3[LINESIZE], van4[LINESIZE], van5[LINESIZE];
+    struct product temp;
 
     // Create file poiinter, and open files for reading
     FILE *fpLine1 = fopen("line1.csv", "r");
@@ -63,14 +55,12 @@ int main(void)
     FILE *fpLine4 = fopen("line4.csv", "r");
 
     // Check if all files has been opened successfully
-    if (fpLine1 == NULL || fpLine2 == NULL || fpLine3 == NULL || fpLine4 == NULL)
-    {
+    if (fpLine1 == NULL || fpLine2 == NULL || fpLine3 == NULL || fpLine4 == NULL) {
         printf("\nError opening files");
         printf("\nExiting program...");
         return 0;
     }
-    else
-    {
+    else {
         printf("Successfully opened files for reading\n");
     }
 
@@ -92,7 +82,7 @@ int main(void)
     showStructVar(L3, 3, LINESIZE, 0);
     showStructVar(L4, 4, LINESIZE, 0);
 
-    printf("\nPress any (enter) to continue: "); while(getchar() != '\n');
+    printf("\nPress (enter) to continue: "); while(getchar() != '\n');
 
     // Sort each line using mergesort O(log(n))
     printf("\nSorting each line...");
@@ -103,7 +93,7 @@ int main(void)
     printf("\nFinished sorting\n");
 
     //showStructVar(struct product line[], int index, int size, int showAll)
-    printf("\nPress any (enter) to show weights:\n"); while(getchar() != '\n');
+    printf("\nPress (enter) to show weights:\n"); while(getchar() != '\n');
     showStructVar(L1, 1, LINESIZE, 1);
     showStructVar(L2, 2, LINESIZE, 1);
     showStructVar(L3, 3, LINESIZE, 1);
@@ -129,6 +119,7 @@ int main(void)
             binarySearch(masterLine, MASTERSIZE);
         }
         else if (find == 'n' || find == 'N') {
+            while(getchar() != '\n');
             break;
         }
         else {
@@ -136,6 +127,20 @@ int main(void)
         }
     }
 
+    // Generate van report
+    vanReport(masterLine,  van1, van2, van3, van4, van5);
+
+    printf("Press (enter) to view van report (van 1):\n"); while(getchar() != '\n');
+    showStructVar(van1, 0, LINESIZE, 0);
+
+    printf("\nPress (enter) to view van report (van 2): "); while(getchar() != '\n');
+    showStructVar(van2, 0, LINESIZE, 0);
+
+    printf("\nPress (enter) to view van report (van 3): "); while(getchar() != '\n');
+    showStructVar(van3, 0, LINESIZE, 0);
+
+    printf("\nPress (enter) to view van report (van 4): "); while(getchar() != '\n');
+    showStructVar(van4, 0, LINESIZE, 0);
 
     // Closes files
     fclose(fpLine1);
@@ -211,7 +216,7 @@ void mergesort(struct product line[LINESIZE], int left, int right) {
         // Merge the two halves
         merge(line, left, middle, right);
     } // END if
-}
+} // END function
 
 void merge(struct product line[LINESIZE], int left, int middle, int right) {
     int i;
@@ -255,13 +260,13 @@ void merge(struct product line[LINESIZE], int left, int middle, int right) {
         line[k] = tempLeft[i];
         i++;
         k++;
-    }
+    } // END while
 
     while (j<n2) {
         line[k] = tempRight[j];
         j++;
         k++;
-    } 
+    } // END while
 } // END function
 
 // Merges all 4 lines
@@ -356,7 +361,7 @@ void binarySearch(struct product line[], int size) {
         printf("\nTarget weight %d FOUND\n",target);
         showStructVar(line, targetIndex, MASTERSIZE, 2); 
     }
-}
+} // END function
 
 void showStructVar(struct product line[], int index, int size, int type) {
     // This shows structures in CSV format
@@ -403,4 +408,38 @@ void showStructVar(struct product line[], int index, int size, int type) {
         printf("Weight:             %d\n",  line[index].weight);
         printf("price:              %.2f\n",line[index].price);
     }
+} // END function
+
+void vanReport(struct product line[], struct product van1[], struct product van2[], struct product van3[], struct product van4[], struct product van5[]) {
+    int totalWeight[NUMVAN] = {0};
+    int vanIndex = 0;
+
+    printf("\nGenerating van report...\n");
+    for (int i=0; i<MASTERSIZE;) {
+        if (totalWeight[0] < WEIGHTLIMIT) {
+            van1[i] = line[i];
+            totalWeight[0] += line[i].weight;
+            i++;
+        }
+        else if (totalWeight[1] < WEIGHTLIMIT) {
+            van1[i] = line[i];
+            totalWeight[0] += line[i].weight;
+            i++;
+        }
+        else if (totalWeight[2] < WEIGHTLIMIT) {
+            van1[i] = line[i];
+            totalWeight[0] += line[i].weight;
+            i++;
+        }
+        else if (totalWeight[3] < WEIGHTLIMIT) {
+            van1[i] = line[i];
+            totalWeight[0] += line[i].weight;
+            i++;
+        }
+        else {
+            printf("\nWeight limit %d is too small. No possible van report possible. Please increase weight limit or number of vans\n");
+            return;
+        }
+    } // END for
+    printf("Van report generated!\n");
 } // END function
