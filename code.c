@@ -341,21 +341,22 @@ void mergeLines(struct product L1[LINESIZE], struct product L2[LINESIZE], struct
 
 // Search for car part by weight
 void binarySearch(struct product line[], int size) {
-    int target;
-    int targetIndex = -1;
-
-    printf("\nEnter weight to find\n");
-    printf("-> ");
-
-    scanf("%d", &target);
-    while(getchar() != '\n'); //clear input buffer
-
     int left;
     int right;
     int mid;
+    int target;
+    int targetIndex;
 
+    // Ask user to enter a weight
+    printf("\nEnter weight to find\n");
+    printf("-> ");
+    scanf("%d", &target);
+    while(getchar() != '\n'); //clear input buffer
+
+    // Set boundaries for binary search
     left = 0;
     right = size-1;
+    targetIndex = -1;
 
     while (left <= right) {
         mid = left + (right-left)/2;
@@ -366,14 +367,15 @@ void binarySearch(struct product line[], int size) {
             break;
         }
         else if (line[mid].weight < target) {
-            left = mid+1;
+            left = mid+1; // Search the right half
         }
         else {
-            right = mid-1;
+            right = mid-1; // Search the left half
         }
     } // END while
 
-    if (targetIndex==-1) {
+    // Tell user if weight has been found or not
+    if (targetIndex == -1) {
         printf("\nTarget weight %d not found\n", target);
     }
     else {
@@ -429,11 +431,15 @@ void showStructVar(struct product line[], int index, int size, int type) {
     }
 } // END function
 
+// Create report for storing products inside the vans
 void vanReport(struct product line[], struct product van1[], struct product van2[], struct product van3[], struct product van4[], struct product van5[], int vanCount[], int totalWeight[]) {
     int vanIndex[NUMVAN] = {0};
 
     printf("\nGenerating van report...\n");
+
+    // Goes through each product in the masterline
     for (int i=0; i<MASTERSIZE;) {
+        // Adds the current product to van 1 if weight limit has not been exceeded
         if (totalWeight[0]+line[i].weight <= WEIGHTLIMIT) {
             van1[vanIndex[0]] = line[i];
             totalWeight[0] += line[i].weight;
@@ -442,6 +448,7 @@ void vanReport(struct product line[], struct product van1[], struct product van2
             vanCount[0]++;
             i++;
         }
+        // Adds the current product to van 2 if weight limit has not been exceeded
         else if (totalWeight[1]+line[i].weight < WEIGHTLIMIT) {
             van2[vanIndex[1]] = line[i];
             totalWeight[1] += line[i].weight;
@@ -450,6 +457,7 @@ void vanReport(struct product line[], struct product van1[], struct product van2
             vanCount[1]++;
             i++;
         }
+        // Adds the current product to van 3 if weight limit has not been exceeded
         else if (totalWeight[2]+line[i].weight < WEIGHTLIMIT) {
             van3[vanIndex[2]] = line[i];
             totalWeight[2] += line[i].weight;
@@ -458,6 +466,7 @@ void vanReport(struct product line[], struct product van1[], struct product van2
             vanCount[2]++;
             i++;
         }
+        // Adds the current product to van 4 if weight limit has not been exceeded
         else if (totalWeight[3]+line[i].weight < WEIGHTLIMIT) {
             van4[vanIndex[3]] = line[i];
             totalWeight[3] += line[i].weight;
@@ -466,6 +475,7 @@ void vanReport(struct product line[], struct product van1[], struct product van2
             vanCount[3]++;
             i++;
         }
+        // Adds the current product to van 5 if weight limit has not been exceeded
         else if (totalWeight[4]+line[i].weight < WEIGHTLIMIT) {
             van5[vanIndex[4]] = line[i];
             totalWeight[4] += line[i].weight;
@@ -474,8 +484,10 @@ void vanReport(struct product line[], struct product van1[], struct product van2
             vanCount[4]++;
             i++;
         }
-        else {
-            printf("\nWeight limit %d is too small. No possible van report possible. Please increase weight limit or number of vans\n", WEIGHTLIMIT);
+        // Alternative case for when no van can store product without exceeding weight limit
+        else { 
+            printf("\nWeight limit %d is too small, no possible van report possible");
+            printf("Please increase weight limit or number of vans\n", WEIGHTLIMIT);
             return;
         }
     } // END for
